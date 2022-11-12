@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/data/api/api.dart';
 import 'package:news_app/shared/cubit/cubit.dart';
 import 'package:news_app/shared/cubit/states.dart';
 
@@ -8,18 +7,21 @@ import '../../shared/components/Reusable_component.dart';
 
 class SearchScreen extends StatelessWidget {
   var searchController=TextEditingController();
+
+  SearchScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NewsCubit, NewsStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        List<dynamic> searchList = ApiData().search;
+        List<dynamic> searchList = NewsCubit.get(context).search;
         return Scaffold(
-          appBar: AppBar( title: const Text("News App"),
+          appBar: AppBar(
+            title:  Text("News App"),
             actions: [
               IconButton(
                 onPressed: (){
-                  NewsCubit.get(context).changeAppThemeMode();
+                  NewsCubit.get(context).ChangeAppThemeMode();
                 },
                 icon: NewsCubit.get(context).isDark? const Icon(Icons.light_mode_sharp):const Icon(Icons.dark_mode_sharp),
 
@@ -36,15 +38,15 @@ class SearchScreen extends StatelessWidget {
                   controller: searchController,
                     keyboardType: TextInputType.text,
                     text: 'Search',
-                    prefixIcon:const Icon(Icons.search),
+                    prefixIcon: Icon(Icons.search),
                     validator: (String? value) {
                       if (value!.isEmpty) {
                         return 'Please enter title';
                       }
                       return null;
                     },
-                  onFieldSubmitted: (shearchedvalue) {
-                    ApiData().getsearch(valueOfSearch:shearchedvalue );
+                  onChanged: (shearchedvalue) {
+                    NewsCubit.get(context).getSearch(valueOfSearch:shearchedvalue );
                   },
                     ),
               ),
@@ -56,3 +58,5 @@ class SearchScreen extends StatelessWidget {
     );
   }
 }
+
+

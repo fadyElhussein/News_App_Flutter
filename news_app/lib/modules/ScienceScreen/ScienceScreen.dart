@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/data/api/api.dart';
 
 import '../../shared/components/Reusable_component.dart';
 import '../../shared/cubit/cubit.dart';
@@ -13,7 +12,7 @@ class ScienceScreen extends StatelessWidget {
     return BlocConsumer<NewsCubit, NewsStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        List<dynamic> scienceList=ApiData().science;
+        List<dynamic> scienceList=NewsCubit.get(context).science;
         return ArticalBulider(scienceList,context);
 
       },

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/data/api/api.dart';
 import 'package:news_app/shared/components/Reusable_component.dart';
 import 'package:news_app/shared/cubit/cubit.dart';
 import 'package:news_app/shared/cubit/states.dart';
@@ -20,13 +19,10 @@ class NewsLayout extends StatelessWidget {
               title: const Text("News App"),
               actions: [
                 MaterialButton(
-                  child: Text(ApiData().countryOfNews=='ae'?"US":"EG"),
+                  child: Text(cubit.countryOfNews=='ae'?"US":"EG"),
                     onPressed:() {
-                      NewsCubit.get(context).changeCountryOfNews();
-                    },
-                  minWidth: 1.0,
-                    ),
-
+                      cubit.changeCountryOfNews();
+                    },minWidth: 1.0,),
                 IconButton(
                     onPressed: (){
                       navigatTo(context,Widget_ScreenGoTo: SearchScreen());
@@ -35,9 +31,9 @@ class NewsLayout extends StatelessWidget {
                 ),
                 IconButton(
                     onPressed: (){
-                      NewsCubit.get(context).changeAppThemeMode();
+                      cubit.ChangeAppThemeMode();
                     },
-                    icon: NewsCubit.get(context).isDark? const Icon(Icons.light_mode_sharp):const Icon(Icons.dark_mode_sharp),
+                    icon: cubit.isDark? const Icon(Icons.light_mode_sharp):const Icon(Icons.dark_mode_sharp),
 
                 ),
               ],

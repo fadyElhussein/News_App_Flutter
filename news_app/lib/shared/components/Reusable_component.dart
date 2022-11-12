@@ -5,26 +5,25 @@ import 'package:news_app/shared/cubit/cubit.dart';
 
 Widget defulttextformfiled({
   TextEditingController? controller,
-  Color? TextColor,backgroundoftextformfield,
+  Color? TextColor,
+  backgroundoftextformfield,
   required keyboardType,
   bool obscureText = false,
   required String text,
   Icon? prefixIcon,
   Icon? suffixIcon,
-  ValueChanged<String>?onFieldSubmitted,
   GestureTapCallback? onTap,
-  // Function(String)? onChanged,
+  Function(String)? onChanged,
   required String? Function(String?) validator,
 }) =>
     TextFormField(
       cursorColor: Colors.deepOrange,
-      style:TextStyle(
+      style: TextStyle(
         color: TextColor,
       ),
       controller: controller,
       onTap: onTap,
-      onFieldSubmitted:onFieldSubmitted ,
-      // onChanged: onChanged,
+      onChanged: onChanged,
       keyboardType: keyboardType,
       obscureText: obscureText,
       validator: validator,
@@ -47,10 +46,11 @@ void navigatTo(context, {required Widget_ScreenGoTo}) => Navigator.push(
     );
 
 Widget ArticalesBulitIteam(article, context) => InkWell(
-  onTap: (){
-    navigatTo(context,Widget_ScreenGoTo:  WebViewScreen(articalurl: article['url']));
-  },
-  child: Padding(
+      onTap: () {
+        navigatTo(context,
+            Widget_ScreenGoTo: WebViewScreen(articalurl: article['url']));
+      },
+      child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +64,9 @@ Widget ArticalesBulitIteam(article, context) => InkWell(
                   errorBuilder: (context, error, stackTrace) => Icon(
                     Icons.no_photography_sharp,
                     size: 60,
-                    color: NewsCubit.get(context).isDark ? Colors.white70 : Colors.black87,
+                    color: NewsCubit.get(context).isDark
+                        ? Colors.white70
+                        : Colors.black87,
                   ),
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null)
@@ -107,7 +109,7 @@ Widget ArticalesBulitIteam(article, context) => InkWell(
           ],
         ),
       ),
-);
+    );
 
 Widget LoadingAnimation({required Color LoadingAnimationColor}) => Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -129,9 +131,9 @@ Widget LoadingAnimation({required Color LoadingAnimationColor}) => Column(
       ],
     );
 
-Widget ArticalBulider(List, context,{isSearch=false}) => List.length > 0
+Widget ArticalBulider(List, context) => List.length > 0
     ? ListView.separated(
-    shrinkWrap: true,
+        shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) =>
             ArticalesBulitIteam(List[index], context),
@@ -145,4 +147,3 @@ Widget ArticalBulider(List, context,{isSearch=false}) => List.length > 0
         LoadingAnimationColor:
             NewsCubit.get(context).isDark ? Colors.white : Colors.black87,
       );
-
